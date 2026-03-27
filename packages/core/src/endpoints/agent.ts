@@ -90,6 +90,13 @@ export function createAgentRouter() {
       return json(res, 404, { ok: false, error: 'action_not_found' });
     }
 
+    // Step 2.5: Param validation (JSON Schema)
+    const validationError = deps.plugins.validateParams(plugin, action, params ?? {});
+    if (validationError) {
+      await deps.audit.append({ source: 'agent', keyId, plugin, action, params, result: 'denied', error: 'invalid_params' });
+      return json(res, 400, { ok: false, error: 'invalid_params', details: validationError });
+    }
+
     // Step 3: Key exists + authorized for plugin
     if (!deps.credentials.isAuthorized(keyId, plugin)) {
       await deps.audit.append({ source: 'agent', keyId, plugin, action, result: 'denied', error: 'plugin_not_authorized' });

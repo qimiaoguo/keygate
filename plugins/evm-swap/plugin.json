@@ -1,0 +1,36 @@
+{
+  "name": "evm-swap",
+  "version": "0.1.0",
+  "description": "EVM DEX swap via Paraswap aggregator (Ethereum, Polygon, Arbitrum, BSC)",
+  "author": "keygate",
+  "category": "crypto",
+  "runtime": "ts",
+  "capabilities": {
+    "actions": [
+      {
+        "name": "swap",
+        "script": "swap.ts",
+        "description": "Execute a token swap on an EVM chain via Paraswap",
+        "riskLevel": "normal",
+        "paramsSchema": "schemas/swap.json"
+      }
+    ],
+    "queries": [
+      {
+        "name": "quote",
+        "script": "quote.ts",
+        "description": "Get a swap quote without executing",
+        "riskLevel": "read",
+        "paramsSchema": "schemas/quote.json"
+      }
+    ]
+  },
+  "internals": {
+    "contracts": [
+      { "address": "0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57", "chain": "polygon" },
+      { "address": "0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57", "chain": "ethereum" },
+      { "address": "0xDEF171Fe48CF0115B1d80b88dc8eAB59176FEe57", "chain": "arbitrum" }
+    ],
+    "never": ["transfer", "approve_unlimited"]
+  }
+}

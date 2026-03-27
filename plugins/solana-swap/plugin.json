@@ -1,0 +1,32 @@
+{
+  "name": "solana-swap",
+  "version": "0.1.0",
+  "description": "Solana DEX swap via Jupiter Ultra aggregator",
+  "author": "keygate",
+  "category": "crypto",
+  "runtime": "ts",
+  "capabilities": {
+    "actions": [
+      {
+        "name": "swap",
+        "script": "swap.ts",
+        "description": "Execute a token swap on Solana via Jupiter",
+        "riskLevel": "normal",
+        "paramsSchema": "schemas/swap.json"
+      }
+    ],
+    "queries": [
+      {
+        "name": "quote",
+        "script": "quote.ts",
+        "description": "Get a swap quote from Jupiter",
+        "riskLevel": "read",
+        "paramsSchema": "schemas/quote.json"
+      }
+    ]
+  },
+  "internals": {
+    "contracts": [],
+    "never": ["transfer", "close_account"]
+  }
+}

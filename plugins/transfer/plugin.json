@@ -1,0 +1,38 @@
+{
+  "name": "transfer",
+  "version": "0.1.0",
+  "description": "Transfer tokens to external addresses (requires approval)",
+  "author": "keygate",
+  "category": "crypto",
+  "runtime": "ts",
+  "capabilities": {
+    "actions": [
+      {
+        "name": "send-evm",
+        "script": "send-evm.ts",
+        "description": "Send native or ERC-20 tokens on an EVM chain",
+        "riskLevel": "elevated",
+        "paramsSchema": "schemas/send-evm.json"
+      },
+      {
+        "name": "send-sol",
+        "script": "send-sol.ts",
+        "description": "Send SOL or SPL tokens on Solana",
+        "riskLevel": "elevated",
+        "paramsSchema": "schemas/send-sol.json"
+      }
+    ],
+    "queries": [
+      {
+        "name": "estimate-evm",
+        "script": "estimate-evm.ts",
+        "description": "Estimate gas for an EVM transfer",
+        "riskLevel": "read",
+        "paramsSchema": "schemas/send-evm.json"
+      }
+    ]
+  },
+  "internals": {
+    "never": []
+  }
+}

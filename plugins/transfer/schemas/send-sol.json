@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "to": {
+      "type": "string",
+      "minLength": 32,
+      "maxLength": 44,
+      "description": "Recipient Solana address (base58)"
+    },
+    "token": {
+      "type": "string",
+      "description": "Token symbol or mint address. Use 'SOL' for native."
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMinimum": 0,
+      "description": "Amount in human-readable units"
+    }
+  },
+  "required": ["to", "token", "amount"],
+  "additionalProperties": false
+}

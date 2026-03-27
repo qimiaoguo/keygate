@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "chain": {
+      "type": "string",
+      "enum": ["ethereum", "polygon", "arbitrum", "bsc"]
+    },
+    "from_token": { "type": "string" },
+    "to_token": { "type": "string" },
+    "amount": { "type": "number", "minimum": 0, "exclusiveMinimum": 0 }
+  },
+  "required": ["chain", "from_token", "to_token", "amount"],
+  "additionalProperties": false
+}

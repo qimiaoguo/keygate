@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "chain": {
+      "type": "string",
+      "enum": ["ethereum", "polygon", "arbitrum", "bsc"],
+      "description": "Target EVM chain"
+    },
+    "from_token": {
+      "type": "string",
+      "description": "Source token address or symbol (e.g. 'USDC' or '0x...')"
+    },
+    "to_token": {
+      "type": "string",
+      "description": "Destination token address or symbol"
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMinimum": 0,
+      "description": "Amount in human-readable units (e.g. 50 for 50 USDC)"
+    },
+    "slippage": {
+      "type": "number",
+      "minimum": 0.01,
+      "maximum": 50,
+      "default": 1,
+      "description": "Max slippage percentage (default 1%)"
+    }
+  },
+  "required": ["chain", "from_token", "to_token", "amount"],
+  "additionalProperties": false
+}
