@@ -37,14 +37,15 @@
 - [x] 3 内置插件：evm-swap (Paraswap) / solana-swap (Jupiter Ultra) / transfer
 - [x] 验收：schema 校验全通过，mock swap 执行成功，transfer 审批流正确
 
-## Step 4 — CLI 客户端完整功能 ⬜
-- [ ] keygate keys import / configure / authorize
-- [ ] keygate plugins install / toggle
-- [ ] keygate tokens issue / revoke
-- [ ] keygate approve-once
-- [ ] cli-direct 通道（终端审批）
-- [ ] daemon 模式（常驻后台）
-- [ ] 验收：完整链路「导入→授权→执行→超限拒绝→approve-once放行」
+## Step 4 — CLI 客户端完整功能 ✅ (2026-03-28)
+- [x] keygate keys import / configure / list / disable
+- [x] keygate plugins list / toggle
+- [x] keygate tokens issue / revoke / list
+- [x] keygate approve（一次性审批）
+- [x] keygate exec / caps / status
+- [x] Flag 模式 + 交互模式双支持
+- [x] 验收：完整链路「导入→解封→授权→执行→超限拒绝→approve-once放行→禁用」
+- [ ] daemon 模式（常驻后台）— 延后，MVP 先手动操作
 
 ## Step 5 — Docker + 文档 + 自用 ⬜
 - [ ] Dockerfile + docker-compose.yml
