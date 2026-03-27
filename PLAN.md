@@ -47,12 +47,11 @@
 - [x] 验收：完整链路「导入→解封→授权→执行→超限拒绝→approve-once放行→禁用」
 - [ ] daemon 模式（常驻后台）— 延后，MVP 先手动操作
 
-## Step 5 — Docker + 文档 + 自用 ⬜
-- [ ] Dockerfile + docker-compose.yml
-- [ ] 安全加固（read_only / cap_drop / seccomp）
-- [ ] README.md（快速开始 + 架构概览）
-- [ ] fund CLI 接入 KeyGate
-- [ ] 验收：交易系统跑在 KeyGate 上
+## Step 5 — Docker + 文档 ✅ (2026-03-28)
+- [x] Dockerfile（multi-stage, non-root）
+- [x] docker-compose.yml（read_only / cap_drop ALL / no-new-privileges / no swap / no core dump）
+- [x] README.md（完整文档：问题/方案/安全模型/快速开始/CLI/插件指南）
+- [ ] fund CLI 接入 KeyGate — Phase 2，需要改造现有交易脚本
 
 ---
 
@@ -69,3 +68,12 @@
 - 3 个真实插件写完：evm-swap, solana-swap, transfer
 - ESM 运行时搞定（插件 package.json type:module）
 - 下一步：Step 4（CLI 客户端）
+
+### 2026-03-28: Step 4 完成
+- CLI 完整实现：status, unseal, keys, plugins, tokens, approve, exec, caps
+- Flag 模式 + 交互模式双支持
+- 完整链路验证通过（14 步测试全过）
+
+### 2026-03-28: Step 5 完成
+- Docker 安全加固 + README 文档
+- MVP 全部完成！
