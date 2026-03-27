@@ -1,0 +1,26 @@
+{
+  "name": "mock-swap",
+  "version": "0.1.0",
+  "description": "Mock swap plugin for testing",
+  "author": "keygate",
+  "category": "crypto",
+  "runtime": "ts",
+  "capabilities": {
+    "actions": [
+      {
+        "name": "swap",
+        "script": "swap.ts",
+        "description": "Swap tokens (mock)",
+        "riskLevel": "normal"
+      }
+    ],
+    "queries": [
+      {
+        "name": "quote",
+        "script": "quote.ts",
+        "description": "Get swap quote (mock)",
+        "riskLevel": "read"
+      }
+    ]
+  }
+}

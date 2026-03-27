@@ -1,0 +1,22 @@
+{
+  "name": "keygate",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI Agent secure credential sandbox",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "plugins/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "clean": "rm -rf packages/*/dist plugins/*/dist"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2"
+  }
+}

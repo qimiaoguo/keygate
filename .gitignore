@@ -1,0 +1,7 @@
+node_modules/
+dist/
+data/
+*.enc.json
+*.meta.json
+.env
+.DS_Store
