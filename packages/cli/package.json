@@ -1,0 +1,16 @@
+{
+  "name": "@keygate/cli",
+  "version": "0.1.0",
+  "description": "KeyGate CLI client — manage keys, plugins, and approvals",
+  "type": "module",
+  "bin": {
+    "keygate": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@keygate/types": "*"
+  }
+}
