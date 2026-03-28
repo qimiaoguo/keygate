@@ -53,6 +53,17 @@
 - [x] README.md（完整文档：问题/方案/安全模型/快速开始/CLI/插件指南）
 - [ ] fund CLI 接入 KeyGate — Phase 2，需要改造现有交易脚本
 
+## Step 6 — 通知通道 ✅ (2026-03-28)
+- [x] Channel 抽象接口（notify / sendMessage / command handling）
+- [x] TelegramChannel 实现（inline keyboard / long polling / authorized chat IDs）
+- [x] ChannelManager（多通道广播 + 命令路由）
+- [x] /agent/request-approval 端点（Agent → 通道 → 用户审批）
+- [x] Pending approval 系统（5 分钟 TTL）
+- [x] 环境变量 + CLI flag 双支持
+- [ ] Discord channel — 需要时再加
+- [ ] Slack channel — 需要时再加
+- [ ] Webhook channel — 通用 HTTP 回调
+
 ---
 
 ## 进度日志
