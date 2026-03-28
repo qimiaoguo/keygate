@@ -151,5 +151,11 @@ export function createClientRouter() {
     return json(res, 200, { ok: true, token });
   });
 
+  // GET /client/channels — list notification channels
+  routes.set('GET /client/channels', async (_req, res, _body, deps) => {
+    const list = deps.channels?.list() ?? [];
+    return json(res, 200, { ok: true, channels: list });
+  });
+
   return { routes };
 }

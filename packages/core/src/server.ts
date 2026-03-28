@@ -14,6 +14,7 @@ import type { AuditLog } from './audit/audit-log.js';
 import type { TokenManager } from './auth/token-manager.js';
 import type { LimitTracker } from './auth/limit-tracker.js';
 import type { PluginManager } from './plugin/plugin-manager.js';
+import type { ChannelManager } from './channels/channel-manager.js';
 import { createAgentRouter } from './endpoints/agent.js';
 import { createClientRouter } from './endpoints/client.js';
 import { createKeysRouter } from './endpoints/keys.js';
@@ -24,6 +25,7 @@ export interface SandboxDeps {
   limits: LimitTracker;
   audit: AuditLog;
   plugins: PluginManager;
+  channels?: ChannelManager;
   /** Ed25519 public key of paired client (hex). Empty if not paired. */
   clientPk: string;
 }

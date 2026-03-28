@@ -8,8 +8,20 @@
 import { nanoid } from 'nanoid';
 import type { AuthToken } from '@keygate/types';
 
+interface PendingApproval {
+  id: string;
+  keyId: string;
+  plugin: string;
+  action: string;
+  params: Record<string, unknown>;
+  createdAt: string;
+  /** Pending approvals expire after 5 minutes */
+  expiresAt: string;
+}
+
 export class TokenManager {
   private tokens = new Map<string, AuthToken>();
+  private pendingApprovals = new Map<string, PendingApproval>();
 
   /**
    * Issue a new token.
@@ -102,5 +114,58 @@ export class TokenManager {
       result.push(token);
     }
     return result;
+  }
+
+  // ─── Pending Approvals (for notification channels) ───
+
+  /**
+   * Create a pending approval request. Returns the approval ID.
+   */
+  createPendingApproval(opts: {
+    keyId: string;
+    plugin: string;
+    action: string;
+    params: Record<string, unknown>;
+  }): string {
+    const id = nanoid(16);
+    const now = new Date();
+    this.pendingApprovals.set(id, {
+      id,
+      keyId: opts.keyId,
+      plugin: opts.plugin,
+      action: opts.action,
+      params: opts.params,
+      createdAt: now.toISOString(),
+      expiresAt: new Date(now.getTime() + 5 * 60 * 1000).toISOString(), // 5 min
+    });
+    return id;
+  }
+
+  /**
+   * Find and consume a pending approval. Returns it if valid, or undefined.
+   */
+  findPendingApproval(approvalId: string): PendingApproval | undefined {
+    const pending = this.pendingApprovals.get(approvalId);
+    if (!pending) return undefined;
+    if (pending.expiresAt < new Date().toISOString()) {
+      this.pendingApprovals.delete(approvalId);
+      return undefined;
+    }
+    // Don't delete yet — the approve handler will issue a token
+    return pending;
+  }
+
+  /**
+   * Deny and remove a pending approval.
+   */
+  denyPendingApproval(approvalId: string): boolean {
+    return this.pendingApprovals.delete(approvalId);
+  }
+
+  /**
+   * Consume (remove) a pending approval after it's been approved.
+   */
+  consumePendingApproval(approvalId: string): boolean {
+    return this.pendingApprovals.delete(approvalId);
   }
 }

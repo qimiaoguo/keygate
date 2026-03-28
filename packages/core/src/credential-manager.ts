@@ -235,4 +235,14 @@ export class CredentialManager {
     // Default: normal actions auto, elevated require
     return false;
   }
+
+  /**
+   * Emergency disable a key (sets enabled=false).
+   */
+  disableKey(keyId: string): boolean {
+    const cred = this.store.get(keyId);
+    if (!cred) return false;
+    cred.meta.enabled = false;
+    return true;
+  }
 }

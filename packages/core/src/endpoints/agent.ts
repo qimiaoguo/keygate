@@ -172,6 +172,54 @@ export function createAgentRouter() {
     }
   });
 
+  // POST /agent/request-approval — ask user to approve an action via notification channel
+  routes.set('POST /agent/request-approval', async (_req, res, body, deps) => {
+    const { plugin, action, key: keyId, params, reason } = body as Record<string, any>;
+
+    if (!plugin || !action || !keyId) {
+      return json(res, 400, { ok: false, error: 'missing_fields', required: ['plugin', 'action', 'key'] });
+    }
+
+    if (!deps.channels || deps.channels.size === 0) {
+      return json(res, 503, { ok: false, error: 'no_channels', hint: 'No notification channels configured. Use CLI to approve manually.' });
+    }
+
+    // Create a pending approval record
+    const approvalId = deps.tokens.createPendingApproval({
+      keyId,
+      plugin,
+      action,
+      params: params ?? {},
+    });
+
+    // Push to all channels
+    await deps.channels.notify({
+      type: 'approval_request',
+      title: 'Approval Required',
+      body: `${plugin}/${action} for key ${keyId}`,
+      approvalRequest: {
+        id: approvalId,
+        keyId,
+        plugin,
+        action,
+        params: params ?? {},
+        reason,
+        requestedAt: new Date().toISOString(),
+      },
+    });
+
+    await deps.audit.append({
+      source: 'agent', keyId, plugin, action, params,
+      result: 'success',
+    });
+
+    return json(res, 202, {
+      ok: true,
+      approvalId,
+      hint: 'Approval request sent to notification channels. Retry /agent/execute after user approves.',
+    });
+  });
+
   // GET /agent/status
   routes.set('GET /agent/status', async (_req, res, _body, deps) => {
     return json(res, 200, {
@@ -179,6 +227,7 @@ export function createAgentRouter() {
       sealed: deps.credentials.isSealed,
       paired: !!deps.clientPk,
       pluginCount: deps.plugins.count,
+      channels: deps.channels?.list() ?? [],
     });
   });
 

@@ -15,6 +15,9 @@ services:
       - ./plugins:/plugins:ro
     environment:
       - NODE_ENV=production
+      # Notification channels (uncomment to enable)
+      # - KEYGATE_TELEGRAM_TOKEN=your-bot-token
+      # - KEYGATE_TELEGRAM_CHAT_ID=your-chat-id
     # Security hardening
     read_only: true
     tmpfs:
